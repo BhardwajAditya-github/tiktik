@@ -4,6 +4,8 @@ A customizable exam workspace builder for mock tests and competitive exam prepar
 
 TickTick allows you to build your own exam interface by arranging widgets such as a PDF viewer, timer, sections panel, and current section tracker. Once configured, you can preview the layout and start the exam in a distraction-free fullscreen mode.
 
+Live at https://tiktik-bay-two.vercel.app/
+
 ---
 
 ## Features
