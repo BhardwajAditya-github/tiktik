@@ -11,9 +11,6 @@ interface CanvasProps {
 
 export default function Canvas({ editable = true }: CanvasProps) {
   const widgets = useWidgetStore((state) => state.widgets);
-
-  console.log("Exam widgets", widgets);
-
   return (
     <div className="relative h-full w-full overflow-hidden rounded-xl border bg-white">
       <Grid />

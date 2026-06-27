@@ -21,32 +21,46 @@ export default function SectionsWidget({
   return (
     <>
       <WidgetWrapper widget={widget} editable={editable}>
-        <div className="h-full p-4">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Sections</h2>
+        <div className="flex h-full flex-col p-3">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-slate-800">Sections</h2>
 
             {editable && (
               <button
                 onClick={() => setOpen(true)}
-                className="rounded p-1 hover:bg-slate-100"
+                className="rounded-md p-1.5 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
               >
-                <Settings size={18} />
+                <Settings size={15} />
               </button>
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="flex-1 space-y-2 overflow-y-auto">
             {sections.map((section, index) => (
               <div
                 key={section.id}
-                className={`rounded-lg border p-2 transition ${
-                  index === current ? "border-blue-500 bg-blue-50" : "bg-white"
+                className={`flex items-center gap-2 rounded-lg border px-3 py-2 transition ${
+                  index === current
+                    ? "border-blue-200 bg-blue-50"
+                    : "border-slate-200 bg-white"
                 }`}
               >
+                <div
+                  className={`h-2 w-2 rounded-full ${
+                    section.completed
+                      ? "bg-slate-400"
+                      : index === current
+                        ? "bg-blue-500"
+                        : "bg-slate-300"
+                  }`}
+                />
+
                 <span
-                  className={
-                    section.completed ? "text-slate-400 line-through" : ""
-                  }
+                  className={`flex-1 text-sm ${
+                    section.completed
+                      ? "text-slate-400 line-through"
+                      : "text-slate-700"
+                  }`}
                 >
                   {section.name}
                 </span>

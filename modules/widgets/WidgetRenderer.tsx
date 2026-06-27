@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function WidgetRenderer({ widget, editable }: Props) {
-  const Component = WidgetRegistry[widget.type];
+  const Component = WidgetRegistry[widget.type].component;
 
   if (!Component) return null;
 

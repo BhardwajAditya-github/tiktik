@@ -15,6 +15,8 @@ interface WidgetStore {
   removeWidget: (id: string) => void;
 
   updateWidget: (id: string, updates: Partial<Widget>) => void;
+
+  clearWidgets: () => void;
 }
 
 export const useWidgetStore = create<WidgetStore>()(
@@ -43,6 +45,11 @@ export const useWidgetStore = create<WidgetStore>()(
             widget.id === id ? { ...widget, ...updates } : widget,
           ),
         })),
+
+      clearWidgets: () =>
+        set({
+          widgets: [],
+        }),
     }),
     {
       name: "ticktick-widgets",

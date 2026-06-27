@@ -6,6 +6,7 @@ import WidgetWrapper from "../WidgetWrapper";
 import type { Widget } from "../widget";
 
 import { useTimerStore } from "@/store/timerStore";
+import { useWidgetTypography } from "@/hooks/useWidgetTypography";
 
 export default function TimerWidget({
   widget,
@@ -16,38 +17,71 @@ export default function TimerWidget({
 }) {
   const remaining = useTimerStore((s) => s.remainingSeconds);
   const running = useTimerStore((s) => s.running);
-  const tick = useTimerStore((s) => s.tick);
+
   const sectionRemaining = useTimerStore((s) => s.currentSectionRemaining);
 
-  const sm = Math.floor(sectionRemaining / 60);
-  const ss = sectionRemaining % 60;
+  const { ref, typography } = useWidgetTypography();
 
   useEffect(() => {
-    if (!running) return;
+    if (!running || editable) return;
 
     const interval = setInterval(() => {
-      tick();
+      useTimerStore.getState().tick();
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [running, tick]);
+  }, [running, editable]);
+
+  const sm = Math.floor(sectionRemaining / 60);
+  const ss = sectionRemaining % 60;
 
   const minutes = Math.floor(remaining / 60);
   const seconds = remaining % 60;
 
   return (
     <WidgetWrapper widget={widget} editable={editable}>
-      <div className="flex h-full flex-col items-center justify-center">
-        <div className="text-xs text-slate-500">Section</div>
+      <div ref={ref} className="h-full">
+        <div className="flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white">
+          {/* Section */}
+          <div className="flex flex-1 flex-col items-center justify-center px-2 py-0">
+            <p
+              className="uppercase tracking-wider text-slate-500"
+              style={{ fontSize: typography.label }}
+            >
+              Section
+            </p>
 
-        <div className="text-xl font-bold text-blue-600">
-          {String(sm).padStart(2, "0")}:{String(ss).padStart(2, "0")}
-        </div>
+            <p
+              className="font-mono font-bold leading-none text-blue-600"
+              style={{
+                fontSize: typography.value,
+              }}
+            >
+              {String(sm).padStart(2, "0")}:{String(ss).padStart(2, "0")}
+            </p>
+          </div>
 
-        <div className="mt-2 text-xs text-slate-500">Overall</div>
+          <div className="mx-4 border-t border-slate-200" />
 
-        <div className="text-2xl font-bold">
-          {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
+          {/* Overall */}
+          <div className="flex flex-1 flex-col items-center justify-center px-2 py-0">
+            <p
+              className="uppercase tracking-wider text-slate-500"
+              style={{ fontSize: typography.label }}
+            >
+              Overall
+            </p>
+
+            <p
+              className="font-mono font-semibold leading-none text-slate-800"
+              style={{
+                fontSize: typography.valueLarge,
+              }}
+            >
+              {String(minutes).padStart(2, "0")}:
+              {String(seconds).padStart(2, "0")}
+            </p>
+          </div>
         </div>
       </div>
     </WidgetWrapper>

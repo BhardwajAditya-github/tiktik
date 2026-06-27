@@ -19,9 +19,11 @@ export default function SectionSettingsDialog({ open, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/40">
-      <div className="w-[650px] rounded-xl bg-white shadow-xl">
+      <div className="w-full max-w-2xl rounded-xl bg-white shadow-xl">
         <div className="flex items-center justify-between border-b p-5">
-          <h2 className="text-xl font-semibold">Section Settings</h2>
+          <h2 className="text-base font-semibold text-slate-800">
+            Section Settings
+          </h2>
 
           <button onClick={onClose}>
             <X size={20} />
@@ -29,7 +31,7 @@ export default function SectionSettingsDialog({ open, onClose }: Props) {
         </div>
 
         <div className="space-y-4 p-5">
-          <label className="flex items-center gap-3">
+          <label className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
             <input
               type="checkbox"
               checked={sectionalTiming}
@@ -44,7 +46,7 @@ export default function SectionSettingsDialog({ open, onClose }: Props) {
               className="grid grid-cols-[1fr_140px_40px] gap-3"
             >
               <input
-                className="rounded border p-2"
+                className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 value={section.name}
                 onChange={(e) => {
                   const updated = [...sections];
@@ -60,7 +62,7 @@ export default function SectionSettingsDialog({ open, onClose }: Props) {
 
               <input
                 type="number"
-                className="rounded border p-2"
+                className="rounded-lg border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 value={section.durationMinutes}
                 onChange={(e) => {
                   const updated = [...sections];
@@ -75,7 +77,7 @@ export default function SectionSettingsDialog({ open, onClose }: Props) {
               />
 
               <button
-                className="rounded border"
+                className="flex items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600"
                 onClick={() => {
                   setSections(sections.filter((_, i) => i !== index));
                 }}
@@ -86,7 +88,7 @@ export default function SectionSettingsDialog({ open, onClose }: Props) {
           ))}
 
           <button
-            className="flex items-center gap-2 rounded border px-3 py-2"
+            className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100"
             onClick={() =>
               setSections([
                 ...sections,
