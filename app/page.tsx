@@ -6,19 +6,10 @@ import RightSidebar from "@/modules/builder/RightSidebar";
 import PreviewModal from "@/modules/preview/PreviewModal";
 import { useExamStore } from "@/store/examStore";
 import ExamOverlay from "@/modules/exam/ExamOverlay";
-import { useCanvasStore } from "@/store/canvasStore";
 
 export default function BuilderPage() {
   const setPreviewOpen = useExamStore((s) => s.setPreviewOpen);
   const startExam = useExamStore((s) => s.startExam);
-
-  const zoom = useCanvasStore((s) => s.zoom);
-
-  const zoomIn = useCanvasStore((s) => s.zoomIn);
-
-  const zoomOut = useCanvasStore((s) => s.zoomOut);
-
-  const resetZoom = useCanvasStore((s) => s.resetZoom);
   return (
     <div className="h-screen flex flex-col bg-slate-100">
       {/* Top Bar */}

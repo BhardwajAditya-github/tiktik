@@ -1,36 +1,194 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TickTick
 
-## Getting Started
+A customizable exam workspace builder for mock tests and competitive exam preparation.
 
-First, run the development server:
+TickTick allows you to build your own exam interface by arranging widgets such as a PDF viewer, timer, sections panel, and current section tracker. Once configured, you can preview the layout and start the exam in a distraction-free fullscreen mode.
+
+---
+
+## Features
+
+### Builder Mode
+
+* Upload your question paper (PDF)
+* Add widgets to the canvas
+* Drag & resize widgets
+* Customize your exam layout
+* Live preview before starting the exam
+* Automatic layout persistence
+
+### Exam Mode
+
+* Fullscreen distraction-free experience
+* Same layout as configured in Builder Mode
+* Running countdown timer
+* Section-wise timing support
+* Automatic section switching
+* Bell notification on section completion
+* Current section indicator
+* Exit exam anytime
+
+---
+
+## Widgets
+
+### PDF Viewer
+
+* Displays uploaded PDF
+* Supports scrolling
+* Built-in zoom controls
+* Uses PDF.js
+
+### Timer
+
+* Overall exam countdown
+* Automatically calculated from section durations
+
+### Sections
+
+Displays:
+
+* Section order
+* Completed sections
+* Current active section
+
+Supports configuring:
+
+* Section names
+* Order
+* Duration
+* Sectional timing
+
+### Current Section
+
+Shows the currently active section during the exam.
+
+---
+
+## Sectional Timing
+
+Enable sectional timing and configure:
+
+* Reasoning
+* General Awareness
+* Quantitative Aptitude
+* English
+
+Each section can have its own duration.
+
+When a section finishes:
+
+* Bell rings
+* Section is marked complete
+* Current section updates automatically
+
+---
+
+## Persistence
+
+The application automatically saves:
+
+* Widget positions
+* Widget sizes
+* Added widgets
+* Section names
+* Section order
+* Section timings
+* Canvas zoom
+
+No Save button is required.
+
+Current exam state is **not** persisted.
+
+> **Note:** Uploaded PDFs are not persisted yet and need to be re-uploaded after a page refresh.
+
+---
+
+## Tech Stack
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Zustand
+* React RND
+* PDF.js
+* @react-pdf-viewer/core
+
+---
+
+## Installation
 
 ```bash
+git clone https://github.com/your-username/ticktick.git
+
+cd ticktick
+
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+1. Upload a PDF from the left sidebar.
+2. Add widgets from the widget library.
+3. Arrange and resize widgets.
+4. Configure section timings (optional).
+5. Click **Preview** to review the layout.
+6. Click **Start Exam** to begin the mock test.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Roadmap
 
-## Deploy on Vercel
+* PDF persistence using IndexedDB
+* Multiple saved layouts
+* Dark mode
+* Keyboard shortcuts
+* Question bookmarking
+* Notes widget
+* Stopwatch widget
+* Progress tracker
+* Exam analytics
+* Cloud sync
+* Import/Export layouts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+app/
+modules/
+  builder/
+  canvas/
+  exam/
+  preview/
+  widgets/
+store/
+lib/
+public/
+```
+
+---
+
+## Contributing
+
+Contributions, feature requests, and bug reports are welcome.
+
+Feel free to open an issue or submit a pull request.
+
+---
+
+## License
+
+MIT License

@@ -29,10 +29,6 @@ export default function WidgetWrapper({
         }}
       >
         <div className="flex h-full flex-col rounded-xl border bg-white shadow-md">
-          <div className="flex h-10 items-center border-b bg-slate-100 px-3">
-            <span className="text-sm font-medium">{widget.title}</span>
-          </div>
-
           <div className="relative flex-1 overflow-hidden">{children}</div>
         </div>
       </div>
@@ -72,10 +68,6 @@ export default function WidgetWrapper({
       enableResizing={editable}
     >
       <div className="flex h-full flex-col rounded-xl border bg-white shadow-md">
-        <div className="widget-header relative z-50 flex h-10 cursor-move items-center justify-between border-b bg-slate-100 px-3">
-          <span className="text-sm font-medium">{widget.title}</span>
-        </div>
-
         <div className="relative flex-1 overflow-hidden">{children}</div>
       </div>
     </Rnd>

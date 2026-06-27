@@ -1,7 +1,7 @@
 "use client";
 
 import { create } from "zustand";
-
+import { persist } from "zustand/middleware";
 import type { Widget, WidgetType } from "@/modules/widgets/widget";
 import { createWidget } from "@/modules/widgets/widgetFactory";
 
@@ -17,28 +17,35 @@ interface WidgetStore {
   updateWidget: (id: string, updates: Partial<Widget>) => void;
 }
 
-export const useWidgetStore = create<WidgetStore>((set) => ({
-  widgets: [],
+export const useWidgetStore = create<WidgetStore>()(
+  persist(
+    (set) => ({
+      widgets: [],
 
-  addWidget: (widget) =>
-    set((state) => ({
-      widgets: [...state.widgets, widget],
-    })),
+      addWidget: (widget) =>
+        set((state) => ({
+          widgets: [...state.widgets, widget],
+        })),
 
-  addWidgetByType: (type) =>
-    set((state) => ({
-      widgets: [...state.widgets, createWidget(type)],
-    })),
+      addWidgetByType: (type) =>
+        set((state) => ({
+          widgets: [...state.widgets, createWidget(type)],
+        })),
 
-  removeWidget: (id) =>
-    set((state) => ({
-      widgets: state.widgets.filter((widget) => widget.id !== id),
-    })),
+      removeWidget: (id) =>
+        set((state) => ({
+          widgets: state.widgets.filter((widget) => widget.id !== id),
+        })),
 
-  updateWidget: (id, updates) =>
-    set((state) => ({
-      widgets: state.widgets.map((widget) =>
-        widget.id === id ? { ...widget, ...updates } : widget,
-      ),
-    })),
-}));
+      updateWidget: (id, updates) =>
+        set((state) => ({
+          widgets: state.widgets.map((widget) =>
+            widget.id === id ? { ...widget, ...updates } : widget,
+          ),
+        })),
+    }),
+    {
+      name: "ticktick-widgets",
+    },
+  ),
+);

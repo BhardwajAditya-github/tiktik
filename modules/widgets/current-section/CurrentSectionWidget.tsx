@@ -1,23 +1,30 @@
 "use client";
 
-import type { Widget } from "../widget";
 import WidgetWrapper from "../WidgetWrapper";
+import type { Widget } from "../widget";
 
-interface Props {
-  widget: Widget;
-  editable: boolean;
-}
+import { useSectionStore } from "@/store/sectionStore";
 
 export default function CurrentSectionWidget({
   widget,
   editable,
-}: Props & { editable: boolean }) {
+}: {
+  widget: Widget;
+  editable: boolean;
+}) {
+  const sections = useSectionStore((s) => s.sections);
+  const current = useSectionStore((s) => s.currentSectionIndex);
+
   return (
     <WidgetWrapper widget={widget} editable={editable}>
-      <div className="flex h-full flex-col items-center justify-center p-4">
-        <p className="text-sm text-slate-500">Current Section</p>
+      <div className="flex h-full flex-col items-center justify-center px-4 text-center">
+        <p className="text-xs uppercase tracking-wide text-slate-500">
+          Current Section
+        </p>
 
-        <h2 className="mt-2 text-2xl font-bold">Reasoning</h2>
+        <h3 className="mt-3 text-lg font-semibold leading-snug break-words">
+          {sections[current]?.name}
+        </h3>
       </div>
     </WidgetWrapper>
   );
