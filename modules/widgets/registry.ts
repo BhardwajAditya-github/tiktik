@@ -1,6 +1,7 @@
 import TimerWidget from "./timer/TimerWidget";
 import SectionsWidget from "./sections/SectionsWidget";
 import CurrentSectionWidget from "./current-section/CurrentSectionWidget";
+import AnswerSheetWidget from "./answer-sheet/AnswerSheetWidget";
 import dynamic from "next/dynamic";
 
 const PDFWidget = dynamic(() => import("./pdf/PDFWidget"), {
@@ -53,6 +54,19 @@ export const WidgetRegistry = {
     defaults: {
       width: 150,
       height: 100,
+      minWidth: 0,
+      minHeight: 0,
+      draggable: true,
+      resizable: true,
+    },
+  },
+
+  "answer-sheet": {
+    component: AnswerSheetWidget,
+    title: "Answer Sheet",
+    defaults: {
+      width: 400,
+      height: 300,
       minWidth: 0,
       minHeight: 0,
       draggable: true,

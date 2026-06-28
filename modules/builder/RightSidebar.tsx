@@ -1,6 +1,14 @@
 "use client";
 
-import { FileText, Timer, List, Target, Plus, Trash2 } from "lucide-react";
+import {
+  FileText,
+  Timer,
+  List,
+  Target,
+  Plus,
+  Trash2,
+  ClipboardList,
+} from "lucide-react";
 import { useWidgetStore } from "@/store/widgetStore";
 
 export default function RightSidebar() {
@@ -27,6 +35,11 @@ export default function RightSidebar() {
       title: "Current Section",
       type: "current-section" as const,
       icon: <Target size={16} />,
+    },
+    {
+      title: "Answer Sheet",
+      type: "answer-sheet" as const,
+      icon: <ClipboardList size={16} />,
     },
   ];
 

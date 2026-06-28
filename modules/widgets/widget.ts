@@ -1,4 +1,9 @@
-export type WidgetType = "pdf" | "timer" | "sections" | "current-section";
+export type WidgetType =
+  | "pdf"
+  | "timer"
+  | "sections"
+  | "current-section"
+  | "answer-sheet";
 
 export type WidgetConfig = Record<string, unknown>;
 

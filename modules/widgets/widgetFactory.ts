@@ -6,6 +6,7 @@ const defaultPosition = {
   timer: { x: 700, y: 20 },
   sections: { x: 640, y: 170 },
   "current-section": { x: 690, y: 450 },
+  "answer-sheet": { x: 20, y: 170 },
 };
 
 export function createWidget(type: WidgetType): Widget {
