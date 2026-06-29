@@ -1,16 +1,20 @@
 "use client";
 
+import { useState } from "react";
+
 import WidgetWrapper from "../WidgetWrapper";
 import type { Widget } from "../widget";
 
 import { usePDFStore } from "@/store/pdfStore";
+import { inspectPDF } from "@/lib/pdf/parser";
 
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/zoom/lib/styles/index.css";
 
 import dynamic from "next/dynamic";
 import { zoomPlugin } from "@react-pdf-viewer/zoom";
-import { FileText } from "lucide-react";
+import { FileText, Settings } from "lucide-react";
+import { useEffect } from "react";
 
 const Viewer = dynamic(
   () => import("@react-pdf-viewer/core").then((mod) => mod.Viewer),
@@ -30,10 +34,37 @@ export default function PDFWidget({
   editable: boolean;
 }) {
   const pdfUrl = usePDFStore((state) => state.pdfUrl);
+  const pdfFile = usePDFStore((s) => s.pdfFile);
+  const setPDFBlob = usePDFStore((s) => s.setPDFBlob);
 
   const zoomPluginInstance = zoomPlugin();
 
   const { ZoomIn, ZoomOut, CurrentScale } = zoomPluginInstance;
+
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
+  const removeAnswers = usePDFStore((s) => s.removeAnswers);
+  const setRemoveAnswers = usePDFStore((s) => s.setRemoveAnswers);
+
+  useEffect(() => {
+    if (!pdfFile) return;
+
+    if (!removeAnswers) {
+      usePDFStore.setState({
+        pdfUrl: URL.createObjectURL(pdfFile),
+      });
+
+      return;
+    }
+
+    (async () => {
+      const blob = await inspectPDF(pdfFile);
+
+      if (blob) {
+        setPDFBlob(blob);
+      }
+    })();
+  }, [pdfFile, removeAnswers]);
 
   return (
     <WidgetWrapper widget={widget} editable={editable}>
@@ -65,6 +96,13 @@ export default function PDFWidget({
 
                 <ZoomIn />
               </div>
+
+              <button
+                onClick={() => setSettingsOpen(true)}
+                className="rounded-md p-2 hover:bg-slate-200"
+              >
+                <Settings size={18} />
+              </button>
             </div>
 
             {/* PDF */}
@@ -78,6 +116,32 @@ export default function PDFWidget({
             </div>
           </div>
         </Worker>
+      )}
+      {settingsOpen && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/30">
+          <div className="w-80 rounded-xl bg-white p-5 shadow-xl">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="font-semibold">PDF Settings</h2>
+
+              <button
+                onClick={() => setSettingsOpen(false)}
+                className="text-xl"
+              >
+                ×
+              </button>
+            </div>
+
+            <label className="flex cursor-pointer items-center justify-between">
+              <span className="text-sm">Remove Answer Highlights</span>
+
+              <input
+                type="checkbox"
+                checked={removeAnswers}
+                onChange={(e) => setRemoveAnswers(e.target.checked)}
+              />
+            </label>
+          </div>
+        </div>
       )}
     </WidgetWrapper>
   );
