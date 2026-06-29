@@ -17,4 +17,7 @@ export interface PdfObject {
 
   streamStart?: number;
   streamEnd?: number;
+
+  lengthStart?: number;
+  lengthEnd?: number;
 }
